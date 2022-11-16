@@ -23,7 +23,7 @@ public class Categoria implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo nome não pode ser vazio!")
-    @Size(max = 20)
+    @Size(max = 20, message = "Tamanho inválido!")
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")

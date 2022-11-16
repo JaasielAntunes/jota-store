@@ -27,18 +27,20 @@ public class Cliente implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo nome não pode ser vazio!")
-    @Size(max = 40)
+    @Size(max = 40, message = "Tamanho inválido!")
     private String nome;
 
     @NotNull(message = "O email nome não pode ser vazio!")
     @Email(message = "Email inválido!")
-    @Size(max = 30)
+    @Size(max = 30, message = "Tamanho inválido!")
     private String email;
 
     @NotNull(message = "O campo cpf ou cnpj não pode ser vazio!")
-    @Size(max = 20)
+    @Size(max = 20, message = "Tamanho inválido!")
     private String cpfOuCnpj;
 
+    @NotNull(message = "O campo cpf ou cnpj não pode ser vazio!")
+    @Size(max = 20, message = "Tamanho inválido!")
     private Integer tipo;
 
     @JsonManagedReference // pode serializar os endereços
@@ -48,6 +50,9 @@ public class Cliente implements Serializable {
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
 
     public Cliente(TipoCliente tipo) {
         this.tipo = tipo.getCod();

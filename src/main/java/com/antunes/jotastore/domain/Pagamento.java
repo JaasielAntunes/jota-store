@@ -1,6 +1,6 @@
 package com.antunes.jotastore.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.antunes.jotastore.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class Estado implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "DC", discriminatorType = DiscriminatorType.STRING)
+public class Pagamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,10 +25,11 @@ public class Estado implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo nome não pode ser vazio!")
-    @Size(max = 15, message = "Tamanho inválido!")
-    private String nome;
+    @Size(max = 10, message = "Tamanho inválido!")
+    private EstadoPagamento estado;
 
-    @JsonBackReference // não pode serializar os estados
-    @OneToMany(mappedBy = "estado")
-    private List<Cidade> cidades;
+    @OneToOne
+    @JoinColumn(name = "pedido_id")
+    @MapsId
+    private Pedido pedido;
 }

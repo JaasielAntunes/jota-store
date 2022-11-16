@@ -1,6 +1,5 @@
 package com.antunes.jotastore.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +8,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class Cidade implements Serializable {
+public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,12 +22,18 @@ public class Cidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "O campo nome não pode ser vazio!")
-    @Size(max = 15, message = "Tamanho inválido!")
-    private String nome;
+    @NotNull(message = "O campo instante não pode ser vazio!")
+    @Size(max = 10, message = "Tamanho inválido!")
+    private Date instante;
 
-    @JsonManagedReference // pode serializar os estados
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+    private Pagamento pagamento;
+
     @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private Estado estado;
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "endereco_de_entrega_id")
+    private Endereco enderecoDeEntrega;
 }

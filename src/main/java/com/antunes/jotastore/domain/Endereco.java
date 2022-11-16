@@ -23,23 +23,23 @@ public class Endereco implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo logradouro não pode ser vazio!")
-    @Size(max = 20)
+    @Size(max = 20, message = "Tamanho inválido!")
     private String logradouro;
 
     @NotNull(message = "O campo número não pode ser vazio!")
-    @Size(max = 5)
+    @Size(max = 5, message = "Tamanho inválido!")
     private String numero;
 
     @NotNull(message = "O campo complemento não pode ser vazio!")
-    @Size(max = 15)
+    @Size(max = 15, message = "Tamanho inválido!")
     private String complemento;
 
     @NotNull(message = "O campo bairro não pode ser vazio!")
-    @Size(max = 15)
+    @Size(max = 15, message = "Tamanho inválido!")
     private String bairro;
 
     @NotNull(message = "O campo cep não pode ser vazio!")
-    @Size(max = 10)
+    @Size(max = 10, message = "Tamanho inválido!")
     private String cep;
 
     @JsonBackReference // não pode serializar o cliente
