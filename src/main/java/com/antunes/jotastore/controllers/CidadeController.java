@@ -33,7 +33,7 @@ public class CidadeController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity find(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
         Optional<Cidade> cidade = service.buscarPorId(id);
         return cidade.<ResponseEntity<Object>>map(cidadeModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(cidadeModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)

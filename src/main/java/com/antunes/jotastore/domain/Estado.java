@@ -1,5 +1,6 @@
 package com.antunes.jotastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Estado implements Serializable {
     @Size(max = 15)
     private String nome;
 
+    @JsonBackReference // não pode serializar os estados
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades;
 }

@@ -1,6 +1,7 @@
 package com.antunes.jotastore.domain;
 
 import com.antunes.jotastore.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,7 @@ public class Cliente implements Serializable {
 
     private Integer tipo;
 
+    @JsonManagedReference // pode serializar os endereços
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos;
 

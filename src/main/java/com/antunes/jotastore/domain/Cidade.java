@@ -1,5 +1,6 @@
 package com.antunes.jotastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Cidade implements Serializable {
     @Size(max = 15)
     private String nome;
 
+    @JsonManagedReference // pode serializar os estados
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;

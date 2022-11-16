@@ -1,5 +1,6 @@
 package com.antunes.jotastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,7 @@ public class Endereco implements Serializable {
     @Size(max = 10)
     private String cep;
 
+    @JsonBackReference // não pode serializar o cliente
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
