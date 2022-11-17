@@ -1,6 +1,7 @@
 package com.antunes.jotastore.domain;
 
 import com.antunes.jotastore.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Pagamento implements Serializable {
     @Size(max = 10, message = "Tamanho inválido!")
     private EstadoPagamento estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

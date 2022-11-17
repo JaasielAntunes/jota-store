@@ -1,7 +1,7 @@
 package com.antunes.jotastore.domain;
 
 import com.antunes.jotastore.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,7 +43,6 @@ public class Cliente implements Serializable {
     @Size(max = 20, message = "Tamanho inválido!")
     private Integer tipo;
 
-    @JsonManagedReference // pode serializar os endereços
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos;
 
@@ -51,6 +50,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
 

@@ -1,14 +1,13 @@
 package com.antunes.jotastore.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -24,11 +23,11 @@ public class PagamentoComBoleto extends Pagamento {
 
     @NotNull(message = "O campo data de vencimento não pode ser vazio!")
     @Size(max = 10, message = "Tamanho inválido!")
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataDeVencimento;
 
     @NotNull(message = "O campo data de pagamento não pode ser vazio!")
     @Size(max = 10, message = "Tamanho inválido!")
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataDePagamento;
 }

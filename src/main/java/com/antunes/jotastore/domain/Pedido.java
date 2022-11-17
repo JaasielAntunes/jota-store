@@ -1,5 +1,6 @@
 package com.antunes.jotastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class Pedido implements Serializable {
 
     @NotNull(message = "O campo instante não pode ser vazio!")
     @Size(max = 10, message = "Tamanho inválido!")
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date instante;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")

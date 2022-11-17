@@ -1,5 +1,6 @@
 package com.antunes.jotastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,14 +33,17 @@ public class Produto implements Serializable {
     @Size(max = 7, message = "Tamanho inválido!")
     private Double preco;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens;
 
+    @JsonIgnore
     public List<Pedido> getPedidos() {
         List<Pedido> lista = new ArrayList<>();
         for (ItemPedido x : itens) {
