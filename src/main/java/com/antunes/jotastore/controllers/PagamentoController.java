@@ -1,7 +1,9 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Pagamento;
+import com.antunes.jotastore.dtos.PagamentoDTO;
 import com.antunes.jotastore.services.PagamentoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +23,15 @@ public class PagamentoController {
     private PagamentoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCategoria(@RequestBody Pagamento pagamento) {
-        service.cadastrar(pagamento);
+    public ResponseEntity cadastrarOuAtualizarPagamento(@RequestBody PagamentoDTO pagamentoDto) {
+        var pagamentoModel = new Pagamento();
+        BeanUtils.copyProperties(pagamentoDto, pagamentoModel);
+        service.cadastrar(pagamentoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body("Pagamento cadastrado ou atualizado com sucesso!");
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Page<Pagamento>> buscarTodasCategorias(@PageableDefault(page = 0, size = 10, sort = "id",
+    public ResponseEntity<Page<Pagamento>> buscarTodasPagamentos(@PageableDefault(page = 0, size = 10, sort = "id",
             direction = Sort.Direction.ASC) Pageable pegeable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos(pegeable));
     }
@@ -41,7 +45,7 @@ public class PagamentoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCategoria(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarPagamento(@PathVariable(value = "id") Integer id) {
         Optional<Pagamento> pag = service.buscarPorId(id);
         if (pag.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pagamento não encontrado!");

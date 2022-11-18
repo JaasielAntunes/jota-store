@@ -30,7 +30,7 @@ public class Cliente implements Serializable {
     @Size(max = 40, message = "Tamanho inválido!")
     private String nome;
 
-    @NotNull(message = "O email nome não pode ser vazio!")
+    @NotNull(message = "O campo email nome não pode ser vazio!")
     @Email(message = "Email inválido!")
     @Size(max = 30, message = "Tamanho inválido!")
     private String email;
@@ -39,7 +39,7 @@ public class Cliente implements Serializable {
     @Size(max = 20, message = "Tamanho inválido!")
     private String cpfOuCnpj;
 
-    @NotNull(message = "O campo cpf ou cnpj não pode ser vazio!")
+    @NotNull(message = "O campo tipo não pode ser vazio!")
     @Size(max = 20, message = "Tamanho inválido!")
     private Integer tipo;
 

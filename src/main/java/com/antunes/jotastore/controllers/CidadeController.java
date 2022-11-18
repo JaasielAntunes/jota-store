@@ -1,7 +1,9 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Cidade;
+import com.antunes.jotastore.dtos.CidadeDTO;
 import com.antunes.jotastore.services.CidadeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +23,15 @@ public class CidadeController {
     private CidadeService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCategoria(@RequestBody Cidade cidade) {
-        service.cadastrar(cidade);
+    public ResponseEntity cadastrarOuAtualizarCidade(@RequestBody CidadeDTO cidadeDto) {
+        var cidadeModel = new Cidade();
+        BeanUtils.copyProperties(cidadeDto, cidadeModel);
+        service.cadastrar(cidadeModel);
         return ResponseEntity.status(HttpStatus.CREATED).body("Cidade cadastrada ou atualizada com sucesso!");
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Page<Cidade>> buscarTodasCategorias(@PageableDefault(page = 0, size = 10, sort = "id",
+    public ResponseEntity<Page<Cidade>> buscarTodasCidades(@PageableDefault(page = 0, size = 10, sort = "id",
             direction = Sort.Direction.ASC) Pageable pegeable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos(pegeable));
     }
@@ -41,7 +45,7 @@ public class CidadeController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCategoria(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarCidade(@PathVariable(value = "id") Integer id) {
         Optional<Cidade> cidade = service.buscarPorId(id);
         if (cidade.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cidade não encontrada!");

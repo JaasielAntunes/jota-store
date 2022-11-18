@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -25,7 +24,6 @@ public class Pedido implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo instante não pode ser vazio!")
-    @Size(max = 10, message = "Tamanho inválido!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date instante;
 

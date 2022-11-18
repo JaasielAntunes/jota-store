@@ -1,7 +1,9 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Endereco;
+import com.antunes.jotastore.dtos.EnderecoDTO;
 import com.antunes.jotastore.services.EnderecoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +23,15 @@ public class EnderecoController {
     private EnderecoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCategoria(@RequestBody Endereco endereco) {
-        service.cadastrar(endereco);
+    public ResponseEntity cadastrarOuAtualizarEndereco(@RequestBody EnderecoDTO enderecoDto) {
+        var enderecoModel = new Endereco();
+        BeanUtils.copyProperties(enderecoDto, enderecoModel);
+        service.cadastrar(enderecoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body("Endereço cadastrado ou atualizado com sucesso!");
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Page<Endereco>> buscarTodasCategorias(@PageableDefault(page = 0, size = 10, sort = "id",
+    public ResponseEntity<Page<Endereco>> buscarTodasEnderecos(@PageableDefault(page = 0, size = 10, sort = "id",
             direction = Sort.Direction.ASC) Pageable pegeable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos(pegeable));
     }
@@ -41,7 +45,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCategoria(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarEndereco(@PathVariable(value = "id") Integer id) {
         Optional<Endereco> endereco = service.buscarPorId(id);
         if (endereco.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereço não encontrado!");

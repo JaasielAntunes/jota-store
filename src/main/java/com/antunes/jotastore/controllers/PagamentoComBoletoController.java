@@ -21,13 +21,13 @@ public class PagamentoComBoletoController {
     private PagamentoComBoletoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCategoria(@RequestBody PagamentoComBoleto pagamentoComBoleto) {
+    public ResponseEntity cadastrarOuAtualizarPagamentoBoleto(@RequestBody PagamentoComBoleto pagamentoComBoleto) {
         service.cadastrar(pagamentoComBoleto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Pagamento boleto cadastrado ou atualizado com sucesso!");
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Page<PagamentoComBoleto>> buscarTodasCategorias(@PageableDefault(page = 0, size = 10, sort = "id",
+    public ResponseEntity<Page<PagamentoComBoleto>> buscarTodasPagamentoBoletos(@PageableDefault(page = 0, size = 10, sort = "id",
             direction = Sort.Direction.ASC) Pageable pegeable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos(pegeable));
     }
@@ -41,7 +41,7 @@ public class PagamentoComBoletoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCategoria(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarPagamentoBoleto(@PathVariable(value = "id") Integer id) {
         Optional<PagamentoComBoleto> pagBoleto = service.buscarPorId(id);
         if (pagBoleto.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pagamento boleto não encontrado!");

@@ -1,7 +1,9 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Categoria;
+import com.antunes.jotastore.dtos.CategoriaDTO;
 import com.antunes.jotastore.services.CategoriaService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -21,8 +24,10 @@ public class CategoriaController {
     private CategoriaService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCategoria(@RequestBody Categoria categoria) {
-        service.cadastrar(categoria);
+    public ResponseEntity cadastrarOuAtualizarCategoria(@Valid @RequestBody CategoriaDTO categoriaDto) {
+        var categoriaModel = new Categoria();
+        BeanUtils.copyProperties(categoriaDto, categoriaModel);
+        service.cadastrar(categoriaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body("Categoria cadastrada ou atualizada com sucesso!");
     }
 

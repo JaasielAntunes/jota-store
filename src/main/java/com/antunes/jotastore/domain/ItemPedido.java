@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -24,15 +23,12 @@ public class ItemPedido implements Serializable {
     private ItemPedidoPK id = new ItemPedidoPK();
 
     @NotNull(message = "O campo quantidade não pode ser vazio!")
-    @Size(max = 10, message = "Tamanho inválido!")
     private Integer quantidade;
 
     @NotNull(message = "O campo desconto não pode ser vazio!")
-    @Size(max = 3, message = "Tamanho inválido!")
     private Double desconto;
 
     @NotNull(message = "O campo preço não pode ser vazio!")
-    @Size(max = 6, message = "Tamanho inválido!")
     private Double preco;
 
     @JsonIgnore

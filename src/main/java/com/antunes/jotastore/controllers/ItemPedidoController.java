@@ -1,7 +1,9 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.ItemPedido;
+import com.antunes.jotastore.dtos.ItemPedidoDTO;
 import com.antunes.jotastore.services.ItemPedidoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +23,15 @@ public class ItemPedidoController {
     private ItemPedidoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCategoria(@RequestBody ItemPedido itemPedido) {
-        service.cadastrar(itemPedido);
+    public ResponseEntity cadastrarOuAtualizarItemPedido(@RequestBody ItemPedidoDTO itemPedidoDto) {
+        var itemPedidoModel = new ItemPedido();
+        BeanUtils.copyProperties(itemPedidoDto, itemPedidoModel);
+        service.cadastrar(itemPedidoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body("Item pedido cadastrado ou atualizado com sucesso!");
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Page<ItemPedido>> buscarTodasCategorias(@PageableDefault(page = 0, size = 10, sort = "id",
+    public ResponseEntity<Page<ItemPedido>> buscarTodasItemPedidos(@PageableDefault(page = 0, size = 10, sort = "id",
             direction = Sort.Direction.ASC) Pageable pegeable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos(pegeable));
     }
@@ -41,7 +45,7 @@ public class ItemPedidoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCategoria(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarItemPedido(@PathVariable(value = "id") Integer id) {
         Optional<ItemPedido> itemPedido = service.buscarPorId(id);
         if (itemPedido.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item pedido não encontrado!");
