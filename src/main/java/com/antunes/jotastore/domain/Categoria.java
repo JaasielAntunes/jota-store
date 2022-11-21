@@ -3,6 +3,7 @@ package com.antunes.jotastore.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ public class Categoria implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo nome não pode ser vazio!")
-    @Size(max = 20, message = "Tamanho inválido!")
+    @Length(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres!")
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")

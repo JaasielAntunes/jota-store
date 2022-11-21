@@ -19,7 +19,7 @@ public class CategoriaDTO implements Serializable {
     private Integer id;
 
     @NotEmpty(message = "Campo nome não pode ser vazio!")
-    @Length(min = 4, max = 30, message = "Deve conter entre 4 a 30 caracteres!")
+    @Length(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres!")
     private String nome;
 
     private CategoriaDTO(Categoria obj) {

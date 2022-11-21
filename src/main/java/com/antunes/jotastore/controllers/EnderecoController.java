@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -23,7 +24,7 @@ public class EnderecoController {
     private EnderecoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarEndereco(@RequestBody EnderecoDTO enderecoDto) {
+    public ResponseEntity cadastrarOuAtualizarEndereco(@Valid @RequestBody EnderecoDTO enderecoDto) {
         var enderecoModel = new Endereco();
         BeanUtils.copyProperties(enderecoDto, enderecoModel);
         service.cadastrar(enderecoModel);

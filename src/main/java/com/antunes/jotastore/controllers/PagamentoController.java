@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -23,7 +24,7 @@ public class PagamentoController {
     private PagamentoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarPagamento(@RequestBody PagamentoDTO pagamentoDto) {
+    public ResponseEntity cadastrarOuAtualizarPagamento(@Valid @RequestBody PagamentoDTO pagamentoDto) {
         var pagamentoModel = new Pagamento();
         BeanUtils.copyProperties(pagamentoDto, pagamentoModel);
         service.cadastrar(pagamentoModel);

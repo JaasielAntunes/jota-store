@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -23,7 +24,7 @@ public class CidadeController {
     private CidadeService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCidade(@RequestBody CidadeDTO cidadeDto) {
+    public ResponseEntity cadastrarOuAtualizarCidade(@Valid @RequestBody CidadeDTO cidadeDto) {
         var cidadeModel = new Cidade();
         BeanUtils.copyProperties(cidadeDto, cidadeModel);
         service.cadastrar(cidadeModel);

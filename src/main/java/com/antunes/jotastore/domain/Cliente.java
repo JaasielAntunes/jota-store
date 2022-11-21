@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -27,7 +28,7 @@ public class Cliente implements Serializable {
     private Integer id;
 
     @NotNull(message = "O campo nome não pode ser vazio!")
-    @Size(max = 40, message = "Tamanho inválido!")
+    @Length(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres!")
     private String nome;
 
     @NotNull(message = "O campo email nome não pode ser vazio!")

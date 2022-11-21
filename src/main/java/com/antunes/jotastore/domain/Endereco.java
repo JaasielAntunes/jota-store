@@ -30,8 +30,6 @@ public class Endereco implements Serializable {
     @Size(max = 5, message = "Tamanho inválido!")
     private String numero;
 
-    @NotNull(message = "O campo complemento não pode ser vazio!")
-    @Size(max = 15, message = "Tamanho inválido!")
     private String complemento;
 
     @NotNull(message = "O campo bairro não pode ser vazio!")

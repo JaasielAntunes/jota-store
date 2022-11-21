@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -23,7 +24,7 @@ public class ProdutoController {
     private ProdutoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarProduto(@RequestBody ProdutoDTO prodDto) {
+    public ResponseEntity cadastrarOuAtualizarProduto(@Valid @RequestBody ProdutoDTO prodDto) {
         var prodModel = new Produto();
         BeanUtils.copyProperties(prodDto, prodModel);
         service.cadastrar(prodModel);

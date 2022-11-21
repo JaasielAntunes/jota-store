@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -25,7 +26,7 @@ public class EstadoController {
     private EstadoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarEstado(@RequestBody EstadoDTO estadoDto) {
+    public ResponseEntity cadastrarOuAtualizarEstado(@Valid @RequestBody EstadoDTO estadoDto) {
         var estadoModel = new Estado();
         BeanUtils.copyProperties(estadoDto, estadoModel);
         service.cadastrar(estadoModel);

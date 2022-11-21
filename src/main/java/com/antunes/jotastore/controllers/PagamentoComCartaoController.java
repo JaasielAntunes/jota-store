@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +22,7 @@ public class PagamentoComCartaoController {
     private PagamentoComCartaoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarPagamentoCartao(@RequestBody PagamentoComCartao pagamentoComCartao) {
+    public ResponseEntity cadastrarOuAtualizarPagamentoCartao(@Valid @RequestBody PagamentoComCartao pagamentoComCartao) {
         service.cadastrar(pagamentoComCartao);
         return ResponseEntity.status(HttpStatus.CREATED).body("Pagamento cartão cadastrado ou atualizado com sucesso!");
     }

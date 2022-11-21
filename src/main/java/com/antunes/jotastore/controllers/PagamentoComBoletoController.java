@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +22,7 @@ public class PagamentoComBoletoController {
     private PagamentoComBoletoService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarPagamentoBoleto(@RequestBody PagamentoComBoleto pagamentoComBoleto) {
+    public ResponseEntity cadastrarOuAtualizarPagamentoBoleto(@Valid @RequestBody PagamentoComBoleto pagamentoComBoleto) {
         service.cadastrar(pagamentoComBoleto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Pagamento boleto cadastrado ou atualizado com sucesso!");
     }

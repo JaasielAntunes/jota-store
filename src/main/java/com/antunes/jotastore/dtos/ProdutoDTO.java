@@ -3,6 +3,7 @@ package com.antunes.jotastore.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -18,7 +19,7 @@ public class ProdutoDTO implements Serializable {
     private Integer id;
 
     @NotEmpty(message = "O campo nome não pode ser vazio!")
-    @Size(max = 40, message = "Tamanho inválido!")
+    @Length(min = 4, max = 30, message = "Deve conter entre 4 e 20 caracteres!")
     private String nome;
 
     @NotEmpty(message = "O campo preço não pode ser vazio!")
