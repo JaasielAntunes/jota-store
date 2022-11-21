@@ -38,7 +38,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Categoria> categoria = service.buscarPorId(id);
         return categoria.<ResponseEntity<Object>>map(categoriaModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(categoriaModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -46,13 +46,13 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCategoria(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarCategoria(@PathVariable Integer id) {
         Optional<Categoria> categoria = service.buscarPorId(id);
         if (categoria.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria não encontrada!");
         }
 
-        service.deletar(categoria.get());
+        service.deletar(categoria.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body("Categoria deletada com sucesso!");
     }
 }

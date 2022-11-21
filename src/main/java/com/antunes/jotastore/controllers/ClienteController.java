@@ -2,6 +2,7 @@ package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Cliente;
 import com.antunes.jotastore.dtos.ClienteDTO;
+import com.antunes.jotastore.dtos.ClienteNewDTO;
 import com.antunes.jotastore.services.ClienteService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/Clientes")
+@RequestMapping(value = "/clientes")
 public class ClienteController {
 
     @Autowired
     private ClienteService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCliente(@Valid @RequestBody ClienteDTO clienteDto) {
+    public ResponseEntity cadastrarOuAtualizarCliente(@Valid @RequestBody ClienteNewDTO clienteDto) {
         var clienteModel = new Cliente();
         BeanUtils.copyProperties(clienteDto, clienteModel);
         service.cadastrar(clienteModel);
@@ -38,7 +39,7 @@ public class ClienteController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Cliente> cliente = service.buscarPorId(id);
         return cliente.<ResponseEntity<Object>>map(clienteModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(clienteModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -46,13 +47,13 @@ public class ClienteController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCliente(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarCliente(@PathVariable Integer id) {
         Optional<Cliente> cliente = service.buscarPorId(id);
         if (cliente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado!");
         }
 
-        service.deletar(cliente.get());
+        service.deletar(cliente.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body("Cliente deletado com sucesso!");
     }
 }

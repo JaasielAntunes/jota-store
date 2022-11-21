@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -15,8 +14,6 @@ import java.io.Serializable;
 public class ProdutoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     @NotEmpty(message = "O campo nome não pode ser vazio!")
     @Length(min = 4, max = 30, message = "Deve conter entre 4 e 20 caracteres!")

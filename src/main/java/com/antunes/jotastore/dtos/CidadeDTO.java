@@ -15,8 +15,6 @@ public class CidadeDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-
     @NotEmpty(message = "O campo nome não pode ser vazio!")
     @Length(min = 5, max = 20, message = "Deve conter entre 5 e 20 caracteres!")
     private String nome;

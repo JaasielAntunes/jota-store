@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -22,7 +23,7 @@ public class Cidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "O campo nome não pode ser vazio!")
+    @NotEmpty(message = "O campo nome não pode ser vazio!")
     @Length(min = 4, max = 20, message = "Deve conter entre 4 e 20 caracteres!")
     private String nome;
 

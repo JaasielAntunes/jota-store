@@ -38,7 +38,7 @@ public class EnderecoController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Endereco> endereco = service.buscarPorId(id);
         return endereco.<ResponseEntity<Object>>map(enderecoModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(enderecoModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -46,7 +46,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarEndereco(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarEndereco(@PathVariable Integer id) {
         Optional<Endereco> endereco = service.buscarPorId(id);
         if (endereco.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereço não encontrado!");

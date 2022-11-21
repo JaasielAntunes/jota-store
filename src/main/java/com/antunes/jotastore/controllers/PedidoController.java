@@ -38,7 +38,7 @@ public class PedidoController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Pedido> pedido = service.buscarPorId(id);
         return pedido.<ResponseEntity<Object>>map(pedidoModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(pedidoModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -46,7 +46,7 @@ public class PedidoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarPedido(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarPedido(@PathVariable Integer id) {
         Optional<Pedido> pedido = service.buscarPorId(id);
         if (pedido.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido não encontrado!");

@@ -40,7 +40,7 @@ public class EstadoController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Estado> estado = service.buscarPorId(id);
         return estado.<ResponseEntity<Object>>map(estadoModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(estadoModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -48,7 +48,7 @@ public class EstadoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarEstado(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarEstado(@PathVariable Integer id) {
         Optional<Estado> estado = service.buscarPorId(id);
         if (estado.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estado não encontrado!");

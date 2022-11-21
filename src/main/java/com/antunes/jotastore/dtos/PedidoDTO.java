@@ -16,8 +16,6 @@ public class PedidoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-
     @NotEmpty(message = "O campo instante não pode ser vazio!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date instante;

@@ -2,7 +2,9 @@ package com.antunes.jotastore.services;
 
 import com.antunes.jotastore.domain.Cliente;
 import com.antunes.jotastore.repositories.ClienteRepository;
+import com.antunes.jotastore.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,13 @@ public class ClienteService {
     }
 
     @Transactional
-    public void deletar(Cliente cliente) {
-        repo.delete(cliente);
+    public void deletar(Integer id) {
+        buscarPorId(id);
+
+        try {
+            repo.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
+        }
     }
 }

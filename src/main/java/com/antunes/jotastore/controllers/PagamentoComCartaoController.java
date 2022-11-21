@@ -34,7 +34,7 @@ public class PagamentoComCartaoController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<PagamentoComCartao> pagCartao = service.buscarPorId(id);
         return pagCartao.<ResponseEntity<Object>>map(pagamentoComCartaoModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(pagamentoComCartaoModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -42,7 +42,7 @@ public class PagamentoComCartaoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarPagamentoCartao(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarPagamentoCartao(@PathVariable Integer id) {
         Optional<PagamentoComCartao> pagCartao = service.buscarPorId(id);
         if (pagCartao.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pagamento cartão não encontrado!");

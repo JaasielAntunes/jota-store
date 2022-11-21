@@ -38,7 +38,7 @@ public class CidadeController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Cidade> cidade = service.buscarPorId(id);
         return cidade.<ResponseEntity<Object>>map(cidadeModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(cidadeModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -46,7 +46,7 @@ public class CidadeController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarCidade(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarCidade(@PathVariable Integer id) {
         Optional<Cidade> cidade = service.buscarPorId(id);
         if (cidade.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cidade não encontrada!");

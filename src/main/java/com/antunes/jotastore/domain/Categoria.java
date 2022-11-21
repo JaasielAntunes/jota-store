@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "O campo nome não pode ser vazio!")
+    @NotEmpty(message = "O campo nome não pode ser vazio!")
     @Length(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres!")
     private String nome;
 

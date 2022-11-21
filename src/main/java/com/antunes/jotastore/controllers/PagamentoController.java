@@ -38,7 +38,7 @@ public class PagamentoController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity buscarPorId(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
         Optional<Pagamento> pag = service.buscarPorId(id);
         return pag.<ResponseEntity<Object>>map(pagamentoModel -> ResponseEntity.status(HttpStatus.OK)
                 .body(pagamentoModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -46,7 +46,7 @@ public class PagamentoController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletarPagamento(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity deletarPagamento(@PathVariable Integer id) {
         Optional<Pagamento> pag = service.buscarPorId(id);
         if (pag.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pagamento não encontrado!");

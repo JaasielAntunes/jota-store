@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -22,22 +23,22 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "O campo logradouro não pode ser vazio!")
+    @NotEmpty(message = "O campo logradouro não pode ser vazio!")
     @Size(max = 20, message = "Tamanho inválido!")
     private String logradouro;
 
-    @NotNull(message = "O campo número não pode ser vazio!")
+    @NotEmpty(message = "O campo número não pode ser vazio!")
     @Size(max = 5, message = "Tamanho inválido!")
     private String numero;
 
     private String complemento;
 
-    @NotNull(message = "O campo bairro não pode ser vazio!")
+    @NotEmpty(message = "O campo bairro não pode ser vazio!")
     @Size(max = 15, message = "Tamanho inválido!")
     private String bairro;
 
-    @NotNull(message = "O campo cep não pode ser vazio!")
-    @Size(max = 10, message = "Tamanho inválido!")
+    @NotEmpty(message = "O campo cep não pode ser vazio!")
+    @Size(max = 9, message = "Tamanho inválido! Formato > 00000-000")
     private String cep;
 
     @JsonIgnore

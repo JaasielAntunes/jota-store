@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -20,11 +19,9 @@ public class PagamentoComBoleto extends Pagamento {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "O campo data de vencimento não pode ser vazio!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataDeVencimento;
 
-    @NotNull(message = "O campo data de pagamento não pode ser vazio!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataDePagamento;
 }
