@@ -1,7 +1,6 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Cliente;
-import com.antunes.jotastore.dtos.ClienteDTO;
 import com.antunes.jotastore.dtos.ClienteNewDTO;
 import com.antunes.jotastore.services.ClienteService;
 import org.springframework.beans.BeanUtils;
