@@ -3,7 +3,6 @@ package com.antunes.jotastore.services;
 import com.antunes.jotastore.domain.Categoria;
 import com.antunes.jotastore.repositories.CategoriaRepository;
 import com.antunes.jotastore.services.exceptions.DataIntegrityException;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -38,8 +37,7 @@ public class CategoriaService {
 
         try {
             repo.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
         }
     }
