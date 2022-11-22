@@ -1,7 +1,6 @@
 package com.antunes.jotastore.controllers;
 
 import com.antunes.jotastore.domain.Cliente;
-import com.antunes.jotastore.dtos.ClienteNewDTO;
 import com.antunes.jotastore.services.ClienteService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping("/cadastrar-atualizar")
-    public ResponseEntity cadastrarOuAtualizarCliente(@Valid @RequestBody ClienteNewDTO clienteDto) {
+    public ResponseEntity cadastrarOuAtualizarCliente(@Valid @RequestBody Cliente clienteDto) {
         var clienteModel = new Cliente();
         BeanUtils.copyProperties(clienteDto, clienteModel);
         service.cadastrar(clienteModel);

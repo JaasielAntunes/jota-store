@@ -1,10 +1,9 @@
 package com.antunes.jotastore.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.antunes.jotastore.domain.enums.TipoCliente;
+import com.antunes.jotastore.services.validation.ClienteUpdate;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,8 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@AllArgsConstructor
-@Data
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,6 +28,45 @@ public class ClienteDTO implements Serializable {
     private String cpfOuCnpj;
 
     @NotNull(message = "O campo tipo não pode ser vazio!")
-    @Range(min = 1, max = 2, message = "Informe apenas 1 ou 2!")
     private Integer tipo;
+
+    public ClienteDTO(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+        super();
+        this.nome = nome;
+        this.email = email;
+        this.cpfOuCnpj = cpfOuCnpj;
+        this.tipo = (tipo == null) ? null : tipo.getCod();
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCpfOuCnpj() {
+        return cpfOuCnpj;
+    }
+
+    public void setCpfOuCnpj(String cpfOuCnpj) {
+        this.cpfOuCnpj = cpfOuCnpj;
+    }
+
+    public TipoCliente getTipo() {
+        return TipoCliente.toEnum(tipo);
+    }
+
+    public void setTipo(TipoCliente tipo) {
+        this.tipo = tipo.getCod();
+    }
 }

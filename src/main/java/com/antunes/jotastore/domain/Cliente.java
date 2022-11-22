@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +28,8 @@ public class Cliente implements Serializable {
 
     @Column(unique = true)
     private String email;
-
     private String cpfOuCnpj;
+    @NotNull(message = "O campo tipo não pode ser vazio!")
     private Integer tipo;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
